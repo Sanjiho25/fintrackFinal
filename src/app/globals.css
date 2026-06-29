@@ -1,0 +1,238 @@
+
+@import 'driver.js/dist/driver.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+@layer base {
+  :root {
+    --background: 150 30% 97%; /* Very light mint */
+    --foreground: 150 25% 15%; /* Dark desaturated mint-gray for text */
+
+    --card: 150 30% 99%; /* Very light off-mint for cards */
+    --card-foreground: 150 25% 15%; /* Dark text on cards */
+
+    --popover: 150 30% 99%;
+    --popover-foreground: 150 25% 15%;
+
+    --primary: 150 55% 58%; /* Mint green: #67C7A3 */
+    --primary-foreground: 150 100% 10%; /* Dark green for text on primary: #00331A */
+
+    --secondary: 150 40% 94%; /* Very light minty gray: #e7f3ee */
+    --secondary-foreground: 150 20% 30%; /* Darker gray-green for text on secondary */
+
+    --muted: 150 30% 90%; /* Slightly darker muted minty gray */
+    --muted-foreground: 150 15% 55%; /* Muted text */
+
+    --accent: 45 70% 55%; /* Gold: #E6B86A */
+    --accent-foreground: 30 50% 15%; /* Dark brown for text on gold: #3A2B12 */
+
+    --destructive: 0 75% 55%; /* Red for destructive actions: #E64A4A */
+    --destructive-foreground: 0 0% 100%; /* White text on destructive */
+
+    --border: 150 20% 88%; /* Light minty-gray border */
+    --input: 150 20% 88%; /* Light minty-gray input background */
+    --ring: 150 55% 58%; /* Ring color based on primary mint */
+
+    --chart-1: 150 55% 58%; /* Primary Mint */
+    --chart-2: 45 70% 55%;   /* Gold Accent */
+    --chart-3: 150 60% 75%; /* Lighter Mint */
+    --chart-4: 45 65% 70%;   /* Lighter Gold */
+    --chart-5: 0 75% 55%;   /* Destructive Red */
+
+    --radius: 0.75rem; /* Increased for more curved UI */
+
+    /* Sidebar vars (can inherit main theme or be distinct) */
+    --sidebar-background: 150 30% 97%;
+    --sidebar-foreground: 150 25% 15%;
+    --sidebar-primary: 150 55% 58%;
+    --sidebar-primary-foreground: 150 100% 10%;
+    --sidebar-accent: 45 70% 55%;
+    --sidebar-accent-foreground: 30 50% 15%;
+    --sidebar-border: 150 20% 88%;
+    --sidebar-ring: 150 55% 58%;
+  }
+
+  .dark {
+    --background: 150 15% 10%; /* Dark desaturated mint-charcoal */
+    --foreground: 150 20% 90%; /* Light minty gray text */
+
+    --card: 150 15% 15%; /* Darker card background */
+    --card-foreground: 150 20% 90%;
+
+    --popover: 150 15% 12%;
+    --popover-foreground: 150 20% 90%;
+
+    --primary: 150 55% 58%; /* Mint green */
+    --primary-foreground: 150 25% 10%; /* Dark text on primary */
+
+    --secondary: 150 15% 20%; /* Darker secondary */
+    --secondary-foreground: 150 20% 85%;
+
+    --muted: 150 15% 25%;
+    --muted-foreground: 150 15% 60%;
+
+    --accent: 45 70% 60%; /* Slightly brighter gold for dark mode: #E6C073 */
+    --accent-foreground: 30 50% 10%; /* Very dark brown for text on gold */
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 150 15% 25%;
+    --input: 150 15% 22%;
+    --ring: 150 55% 58%; /* Primary mint for ring */
+
+    --chart-1: 150 55% 58%; /* Primary Mint */
+    --chart-2: 45 70% 60%;   /* Gold Accent (dark mode) */
+    --chart-3: 150 60% 70%; /* Lighter Mint (dark mode) */
+    --chart-4: 45 65% 75%;   /* Lighter Gold (dark mode) */
+    --chart-5: 0 70% 50%;   /* Destructive Red (dark mode) */
+
+    --sidebar-background: 150 15% 10%;
+    --sidebar-foreground: 150 20% 90%;
+    --sidebar-primary: 150 55% 58%;
+    --sidebar-primary-foreground: 150 25% 10%;
+    --sidebar-accent: 45 70% 60%;
+    --sidebar-accent-foreground: 30 50% 10%;
+    --sidebar-border: 150 15% 25%;
+    --sidebar-ring: 150 55% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Ensure touch scrolling feels natural */
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Ensure focus rings are visible but match theme */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+/* Remove spinner from number inputs */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* Custom Animations */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    opacity: 0; /* Start hidden */
+  }
+  .animate-bounce-in {
+    animation: bounceIn 0.6s ease-out forwards;
+  }
+  .animate-pulse-logo { /* New animation for the logo */
+    animation: pulseLogo 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes bounceIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    80% { transform: scale(0.9); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes pulseLogo { /* Definition for the logo pulse */
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: .6;
+    }
+  }
+}
+
+/* Driver.js theme customization */
+.driver-popover {
+  background-color: hsl(var(--popover));
+  color: hsl(var(--popover-foreground));
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--border));
+}
+
+.driver-popover-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.driver-popover-description {
+  color: hsl(var(--muted-foreground));
+}
+
+.driver-popover-arrow-side-bottom .driver-popover-arrow {
+  border-top-color: hsl(var(--border));
+}
+.driver-popover-arrow-side-top .driver-popover-arrow {
+  border-bottom-color: hsl(var(--border));
+}
+.driver-popover-arrow-side-left .driver-popover-arrow {
+  border-right-color: hsl(var(--border));
+}
+.driver-popover-arrow-side-right .driver-popover-arrow {
+  border-left-color: hsl(var(--border));
+}
+
+.driver-popover-close-btn {
+  color: hsl(var(--muted-foreground));
+}
+.driver-popover-close-btn:hover {
+  color: hsl(var(--foreground));
+}
+
+.driver-popover-footer button {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  text-shadow: none;
+  border-radius: calc(var(--radius) - 4px);
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+}
+.driver-popover-footer button:hover {
+  background-color: hsl(var(--secondary) / 0.8);
+}
+
+.driver-popover-footer .driver-popover-next-btn {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+.driver-popover-footer .driver-popover-next-btn:hover {
+  background-color: hsl(var(--primary) / 0.9);
+}
+
+.driver-popover-progress-text {
+  color: hsl(var(--muted-foreground));
+}
+
+    
